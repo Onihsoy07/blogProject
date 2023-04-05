@@ -1,8 +1,6 @@
 package com.example.blog.entity;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers.Base;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,8 +21,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.web.bind.annotation.CookieValue;
 
 @Entity
 @Data
@@ -49,8 +45,8 @@ public class Board extends BaseEntity {
     private int count;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "usersId")
+    private Users users;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reply> replyList = new ArrayList<>();
