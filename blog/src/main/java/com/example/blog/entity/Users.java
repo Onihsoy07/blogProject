@@ -27,7 +27,6 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 @AllArgsConstructor
 @Builder
 @Table(name = "users", schema = "blog", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
-@DynamicInsert
 public class Users extends BaseEntity {
 
     @Id
@@ -44,10 +43,8 @@ public class Users extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String email;
 
-//    @Enumerated(EnumType.STRING)
-
-    @ColumnDefault("'user'")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Board> boardList = new ArrayList<>();
