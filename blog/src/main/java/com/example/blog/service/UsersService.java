@@ -6,6 +6,5 @@ public interface UsersService {
 
     public int join(Users users);
 
-    public Users longin(Users users);
 
 }

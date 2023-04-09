@@ -22,7 +22,7 @@ let index = {
 
     $.ajax({
       type : "POST",
-      url : "/api/user",
+      url : "/auth/joinProc",
       contentType: "application/json;charset=utf-8",
       dataType:"json",
       data : JSON.stringify(data)
@@ -34,29 +34,6 @@ let index = {
       });
   },
 
-    login: function() {
-      let data = {
-        username: $("#username").val(),
-        password: $("#password").val()
-      };
-
-  // data 확인용
-  //    console.log(data);
-  //    alert(JSON.stringify(data));
-
-      $.ajax({
-        type : "POST",
-        url : "/api/user/login",
-        contentType: "application/json;charset=utf-8",
-        dataType:"json",
-        data : JSON.stringify(data)
-        }).done(function (res) {
-          alert();
-          location.href="/";
-        }).fail(function (error){
-          alert("로그인이 실패하였습니다.");
-        });
-    }
 };
 
 index.init();

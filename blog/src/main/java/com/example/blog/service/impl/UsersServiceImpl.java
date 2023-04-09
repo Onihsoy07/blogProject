@@ -28,10 +28,5 @@ public class UsersServiceImpl implements UsersService {
         return -1;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Users longin(Users users) {
-        return usersRepository.findByUsernameAndPassword(users.getUsername(), users.getPassword());
-    }
 
 }

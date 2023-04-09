@@ -19,7 +19,7 @@ public class UserApiController {
     private final UsersService usersService;
 
 
-    @PostMapping("/api/user")
+    @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody Users users) {
         System.out.println("/api/user save 호출됨");
         users.setRole(Role.USER);
@@ -27,24 +27,6 @@ public class UserApiController {
         return new ResponseDto<>(HttpStatus.OK,result);
     }
 
-    /*
-    //기본 로그인 연습
-    @PostMapping("/api/user/login")
-    public ResponseDto<Integer> longin(@RequestBody Users users, HttpSession session) {
-        System.out.println("/blog/api/user/login login 호출됨");
-        Users principal = usersService.longin(users);
 
-        if (principal != null) {
-            session.setAttribute("principal", principal);
-            return new ResponseDto<>(HttpStatus.OK,1);
-        } else {
-            System.out.println("로그인 error");
-            throw new IllegalArgumentException("로그인 error");
-//            return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR,-1);
-        }
-    }
-     */
-
-    
 
 }
