@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApiController {
 
     private final UsersService usersService;
-
 
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody Users users) {

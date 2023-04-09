@@ -4,6 +4,7 @@ import com.example.blog.entity.Users;
 import com.example.blog.repository.UsersRepository;
 import com.example.blog.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,13 @@ public class UsersServiceImpl implements UsersService {
 
     private final UsersRepository usersRepository;
 
+    private final BCryptPasswordEncoder encoder;
 
     @Override
     @Transactional
     public int join(Users user) {
+        String encPassword = encoder.encode(user.getPassword());
+        user.setPassword(encPassword);
         try {
             usersRepository.save(user);
             return 1;
