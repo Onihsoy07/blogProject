@@ -1,4 +1,4 @@
-package com.example.blog.controller;
+package com.example.blog.controller.test;
 
 import com.example.blog.entity.Role;
 import com.example.blog.entity.Users;
