@@ -4,7 +4,7 @@ import com.example.blog.entity.Users;
 
 public interface UsersService {
 
-    public int join(Users users);
+    int join(Users users);
 
 
 }

@@ -27,15 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //vm 추가(로그인 안함) -Dfile.encoding=UTF-8
 
         http
-            .csrf().disable()  //csfr 토큰 비활성화
+            .csrf().disable()  //csfr(query로 공격) 토큰 비활성화 (테스트시 비활성화)   //xss(script 공격)  --> 추후 확인 필요
             .authorizeRequests()
                 .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
                 .permitAll()
                 .anyRequest()
-                    .authenticated()
+                .authenticated()
             .and()
                 .formLogin()
-                .loginPage("/auth/loginForm");
+                .loginPage("/auth/loginForm")
+                .loginProcessingUrl("/auth/loginProc")
+                .defaultSuccessUrl("/");
 
     }
 

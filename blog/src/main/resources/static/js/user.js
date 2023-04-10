@@ -32,7 +32,7 @@ let index = {
       }).fail(function (error){
         alert("회원가입이 실패하였습니다.");
       });
-  },
+  }
 
 };
 
