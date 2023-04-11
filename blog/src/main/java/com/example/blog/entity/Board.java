@@ -41,10 +41,10 @@ public class Board extends BaseEntity {
     @Lob
     private String content;
 
-    @ColumnDefault("0")
+
     private int count;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usersId")
     private Users users;
 

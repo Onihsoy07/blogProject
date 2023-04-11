@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
 @Slf4j
 public class PrincipalDetail implements UserDetails {
 
@@ -51,13 +52,13 @@ public class PrincipalDetail implements UserDetails {
     //비밀번호(credential)가 만료(expired)되지 않았는지 리턴 (true:만료안됨)
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     //계정 활성화(사용가능)상태 리턴 (true:활성화)
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     //계정의 권한 목록 리턴 (여러개 가능)

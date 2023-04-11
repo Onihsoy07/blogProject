@@ -11,4 +11,9 @@ public class BoardController {
         return "index";
     }
 
+    @GetMapping("/board/writeForm")
+    public String saveForm() {
+        return "board/writeForm";
+    }
+
 }

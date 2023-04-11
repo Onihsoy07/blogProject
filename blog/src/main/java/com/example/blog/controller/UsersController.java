@@ -9,14 +9,17 @@ public class UsersController {
 
     @GetMapping("/auth/joinForm")
     public String joinFrom() {
-
         return "user/joinForm";
     }
 
     @GetMapping("/auth/loginForm")
     public String loginForm() {
-
         return "user/loginForm";
+    }
+
+    @GetMapping("/auth/loginFail")
+    public String loginFail() {
+        return "loginFail";
     }
 
 }
