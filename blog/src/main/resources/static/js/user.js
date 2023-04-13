@@ -5,7 +5,7 @@ let index = {
     });
     $("#btn-login").on("click", ()=>{
           this.login();
-        });
+    });
 
   },
 

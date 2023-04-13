@@ -12,4 +12,8 @@ public interface BoardService {
 
         Page<Board> writeList(Pageable pageable);
 
+        Board viewBoard(Long id);
+
+        void deleteById(Long id);
+
 }
