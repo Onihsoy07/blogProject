@@ -6,6 +6,7 @@ import com.example.blog.entity.Board;
 import com.example.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,10 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody Board board,
+    public ResponseEntity<Integer> save(@RequestBody Board board,
                                      @AuthenticationPrincipal PrincipalDetail principal) {
         boardService.write(board, principal.getUsers());
-        return new ResponseDto(HttpStatus.OK, 1);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }

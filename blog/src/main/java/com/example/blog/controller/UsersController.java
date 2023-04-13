@@ -19,7 +19,7 @@ public class UsersController {
 
     @GetMapping("/auth/loginFail")
     public String loginFail() {
-        return "loginFail";
+        return "user/loginFailForm";
     }
 
 }

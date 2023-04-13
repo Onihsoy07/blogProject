@@ -32,7 +32,7 @@ public class UserApiController {
         users.setRole(Role.USER);
         int result = usersService.join(users);
         if (result == 1) {
-            LOGGER.info("회원가입 완료 : user {}", users.toString());
+//            LOGGER.info("회원가입 완료 : user {}", users.toString());
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             LOGGER.info("error");
