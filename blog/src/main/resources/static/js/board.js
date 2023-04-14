@@ -20,7 +20,7 @@ let index = {
 
     $.ajax({
       type : "POST",
-      url : "/api/boards",
+      url : "/api/board",
       contentType: "application/json;charset=utf-8",
       dataType:"json",
       data : JSON.stringify(data)
@@ -33,6 +33,8 @@ let index = {
   },
 
   update: function() {
+    let id = $("#id").val()
+
     let data = {
        title: $("#title").val(),
        content: $("#content").val()
@@ -40,7 +42,7 @@ let index = {
 
     $.ajax({
       type : "PUT",
-      url : "/board/joinProc",
+      url : "/api/board/"+id,
       contentType: "application/json;charset=utf-8",
       dataType:"json",
       data : JSON.stringify(data)
@@ -53,7 +55,7 @@ let index = {
   },
 
   deleteById: function() {
-    var id = $("#id").text();
+    let id = $("#id").text();
 
     $.ajax({
       type : "DELETE",

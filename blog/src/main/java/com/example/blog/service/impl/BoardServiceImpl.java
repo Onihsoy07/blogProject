@@ -1,5 +1,6 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.dto.BoardDto;
 import com.example.blog.entity.Board;
 import com.example.blog.entity.Users;
 import com.example.blog.repository.BoardRepository;
@@ -39,11 +40,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(readOnly = true)
     public Board viewBoard(Long id) {
-        return boardRepository.findById(id)
-            .orElseThrow(() -> {
-                throw new IllegalArgumentException(String.format("ID : %d 로 Board를 찾을 수 없습니다.", id));
-            }
-        );
+        return findById(id);
     }
 
     @Override
@@ -51,6 +48,22 @@ public class BoardServiceImpl implements BoardService {
     public void deleteById(Long id) {
         boardRepository.deleteById(id);
         LOGGER.info("boardService의 deleteById 작업 완료");
+    }
+
+    @Override
+    @Transactional
+    public void updateBoard(Long id, BoardDto board) {
+        Board updateBoard = findById(id);
+        updateBoard.setTitle(board.getTitle());
+        updateBoard.setContent(board.getContent());
+        LOGGER.info("boardService의 updateBoard 작업 완료");
+    }
+
+    private Board findById(Long id) {
+        return boardRepository.findById(id)
+            .orElseThrow(() -> {
+                throw new IllegalArgumentException(String.format("ID : %d 로 Board를 찾을 수 없습니다.", id));
+            });
     }
 
 }

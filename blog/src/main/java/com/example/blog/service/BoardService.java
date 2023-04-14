@@ -1,5 +1,6 @@
 package com.example.blog.service;
 
+import com.example.blog.dto.BoardDto;
 import com.example.blog.entity.Board;
 import com.example.blog.entity.Users;
 import java.util.List;
@@ -15,5 +16,7 @@ public interface BoardService {
         Board viewBoard(Long id);
 
         void deleteById(Long id);
+
+        void updateBoard(Long id, BoardDto board);
 
 }
