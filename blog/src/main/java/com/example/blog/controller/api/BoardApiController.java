@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 @Slf4j
 public class BoardApiController {
 
@@ -27,18 +30,18 @@ public class BoardApiController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(BoardApiController.class);
 
-    @PostMapping("/api/board")
+    @PostMapping("/boards")
     public ResponseEntity<Integer> save(@RequestBody Board board,
                                      @AuthenticationPrincipal PrincipalDetail principal) {
         boardService.write(board, principal.getUsers());
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(HttpStatus.OK.value());
     }
 
-    @DeleteMapping("/api/board/{id}")
+    @DeleteMapping(value="/board/{id}")
     public ResponseEntity<Integer> deleteById(@PathVariable final Long id) {
         LOGGER.info("[delete] /api/board/{} 호출됨", id);
         boardService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(HttpStatus.OK.value());
     }
 
 }

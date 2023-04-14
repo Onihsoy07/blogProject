@@ -15,12 +15,12 @@ let index = {
   save: function() {
     let data = {
       title: $("#title").val(),
-      content: $("#content").val(),
+      content: $("#content").val()
     };
 
     $.ajax({
       type : "POST",
-      url : "/api/board",
+      url : "/api/boards",
       contentType: "application/json;charset=utf-8",
       dataType:"json",
       data : JSON.stringify(data)
@@ -34,9 +34,8 @@ let index = {
 
   update: function() {
     let data = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-      email: $("#email").val()
+       title: $("#title").val(),
+       content: $("#content").val()
     };
 
     $.ajax({
@@ -59,7 +58,6 @@ let index = {
     $.ajax({
       type : "DELETE",
       url : "/api/board/"+id,
-      contentType: "application/json;charset=utf-8",
       dataType:"json"
       }).done(function (res) {
         alert("삭제가 완료되었습니다.");
