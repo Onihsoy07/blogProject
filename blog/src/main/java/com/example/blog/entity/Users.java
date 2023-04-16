@@ -13,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,12 +41,18 @@ public class Users extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 30, unique = true)
+    @NotBlank(message="PASSWORD_IS_MANDATORY")
+    @Max(value = 30)
     private String username;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message="PASSWORD_IS_MANDATORY")
+    @Size(min = 8, max = 100)
     private String password;
 
     @Column(nullable = false, length = 50, unique = true)
+    @Email(message = "NOT_VALID_EMAIL")
+    @Size(min = 3, max = 50)
     private String email;
 
     @Enumerated(EnumType.STRING)
