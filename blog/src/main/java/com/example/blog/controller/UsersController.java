@@ -22,4 +22,9 @@ public class UsersController {
         return "user/loginFailForm";
     }
 
+    @GetMapping("/user/updateForm")
+    public String updateForm() {
+        return "user/updateForm";
+    }
+
 }

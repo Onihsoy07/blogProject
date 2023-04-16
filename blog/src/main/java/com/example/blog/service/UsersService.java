@@ -6,5 +6,6 @@ public interface UsersService {
 
     int join(Users users);
 
+    void updateUser(Users users);
 
 }

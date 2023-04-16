@@ -40,5 +40,17 @@ public class UsersServiceImpl implements UsersService {
         return -1;
     }
 
+    @Override
+    @Transactional
+    public void updateUser(Users users) {
+        Users updateUser = usersRepository.findById(users.getId())
+                                            .orElseThrow(() -> {
+                                                throw new IllegalArgumentException(String.format("User ID : %d를 찾을 수 없습니다.", users.getId()));
+                                            });
+        String encPassword = encoder.encode(users.getPassword());
+        updateUser.setPassword(encPassword);
+        updateUser.setEmail(users.getEmail());
+    }
+
 
 }

@@ -23,11 +23,6 @@ public class PrincipalDetail implements UserDetails {
 
     private Users users;
 
-//    PrincipalDetail(Users users) {
-//        this.users = users;
-//        System.out.println(this.users.toString());
-//    }
-
     @Override
     public String getPassword() {
         return users.getPassword();

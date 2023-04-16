@@ -3,8 +3,8 @@ let index = {
     $("#btn-save").on("click", ()=>{
       this.save();
     });
-    $("#btn-login").on("click", ()=>{
-          this.login();
+    $("#btn-update").on("click", ()=>{
+          this.update();
     });
 
   },
@@ -31,6 +31,28 @@ let index = {
         location.href="/";
       }).fail(function (error){
         alert("회원가입이 실패하였습니다.");
+      });
+  },
+
+  update: function() {
+    let data = {
+      id: $('#id').val(),
+      username: $("#username").val(),
+      password: $("#password").val(),
+      email: $("#email").val()
+    };
+
+    $.ajax({
+      type : "PUT",
+      url : "/user",
+      contentType: "application/json;charset=utf-8",
+      dataType:"json",
+      data : JSON.stringify(data)
+      }).done(function (res) {
+        alert("회원수정이 완료되었습니다.");
+        location.href="/";
+      }).fail(function (error){
+        alert("회원수정이 실패하였습니다.");
       });
   }
 

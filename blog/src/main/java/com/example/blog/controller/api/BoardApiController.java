@@ -33,8 +33,8 @@ public class BoardApiController {
     private final Logger LOGGER = LoggerFactory.getLogger(BoardApiController.class);
 
     @PostMapping("/board")
-    public ResponseEntity<Integer> save(@RequestBody Board board,
-                                     @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseEntity<Integer> save(@RequestBody final Board board,
+                                     @AuthenticationPrincipal final PrincipalDetail principal) {
         boardService.write(board, principal.getUsers());
         return ResponseEntity.status(HttpStatus.OK).body(HttpStatus.OK.value());
     }
