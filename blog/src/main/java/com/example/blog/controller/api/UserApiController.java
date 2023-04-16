@@ -6,6 +6,7 @@ import com.example.blog.entity.Users;
 import com.example.blog.service.UsersService;
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class UserApiController {
     private final UsersService usersService;
 
     @PostMapping("/auth/joinProc")
-    public ResponseEntity<Integer> save(@RequestBody Users users) {
+    public ResponseEntity<Integer> save(@RequestBody @Valid Users users) {
         LOGGER.info("/api/user save 호출됨");
         users.setRole(Role.USER);
         int result = usersService.join(users);

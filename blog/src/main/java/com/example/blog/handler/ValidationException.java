@@ -7,13 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@ControllerAdvice
+@RestControllerAdvice
 @RestController
 @Slf4j
 public class ValidationException {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ValidationException.class);
 
+    //안됨 추후 확인 필요
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public Object exception(Exception e) {
