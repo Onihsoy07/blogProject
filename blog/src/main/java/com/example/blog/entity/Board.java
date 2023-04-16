@@ -13,10 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,11 +41,11 @@ public class Board extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    @Min(value = 1)
+    @Size(min = 1)
     private String title;
 
     @Lob
-    @Min(value = 3)
+    @Size(min = 3)
     private String content;
 
     private int count;

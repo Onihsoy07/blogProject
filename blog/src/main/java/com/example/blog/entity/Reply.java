@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Reply extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 200)
+    @Size(min = 3)
     private String content;
 
     @ManyToOne
