@@ -1,6 +1,8 @@
 package com.example.blog.controller.api;
 
+import com.example.blog.config.auth.PrincipalDetail;
 import com.example.blog.dto.ResponseDto;
+import com.example.blog.dto.UsersDto;
 import com.example.blog.entity.Role;
 import com.example.blog.entity.Users;
 import com.example.blog.service.UsersService;
@@ -14,6 +16,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,7 +54,10 @@ public class UserApiController {
     @PutMapping("/user")
     public ResponseEntity<Integer> updateUser(@RequestBody final Users users) {
         LOGGER.info("[put] updateUser 호출됨.");
-        usersService.updateUser(users);
+
+        UsersDto userDto = usersService.updateUser(users);
+        LOGGER.info(userDto.toString());
+
         return ResponseEntity.status(HttpStatus.OK).body(1);
     }
 

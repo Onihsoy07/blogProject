@@ -23,8 +23,6 @@ public class PrincipalDetailService implements UserDetailsService {
             .orElseThrow(() -> {
                 throw new UsernameNotFoundException(String.format("해당 아이디 : %s 를 찾을 수 없습니다.",  username));
             });
-        PrincipalDetail principalDetail = new PrincipalDetail(principal);
-        System.out.println(principalDetail.getUsers().toString());
-        return principalDetail;  //시큐리티 세션에 정보 저장됨
+        return new PrincipalDetail(principal);  //시큐리티 세션에 정보 저장됨
     }
 }

@@ -1,13 +1,20 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.controller.api.UserApiController;
+import com.example.blog.dto.UsersDto;
 import com.example.blog.entity.Users;
+import com.example.blog.mapping.UsersMapping;
 import com.example.blog.repository.UsersRepository;
 import com.example.blog.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +27,8 @@ public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
 
     private final BCryptPasswordEncoder encoder;
+
+    private final AuthenticationManager authenticationManager;
 
     private final Logger LOGGER = LoggerFactory.getLogger(UsersServiceImpl.class);
 
@@ -42,7 +51,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     @Transactional
-    public void updateUser(Users users) {
+    public UsersDto updateUser(Users users) {
         Users updateUser = usersRepository.findById(users.getId())
                                             .orElseThrow(() -> {
                                                 throw new IllegalArgumentException(String.format("User ID : %d를 찾을 수 없습니다.", users.getId()));
@@ -50,6 +59,15 @@ public class UsersServiceImpl implements UsersService {
         String encPassword = encoder.encode(users.getPassword());
         updateUser.setPassword(encPassword);
         updateUser.setEmail(users.getEmail());
+
+        LOGGER.info(updateUser.toString());
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(updateUser.getUsername(), updateUser.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        LOGGER.info("세션 변경 완료");
+
+        return UsersMapping.UsersConvertToDto(updateUser);
     }
 
 
