@@ -61,19 +61,10 @@ public class UsersServiceImpl implements UsersService {
         updateUser.setEmail(users.getEmail());
         usersRepository.save(updateUser);
 
-        Users principalUser = usersRepository.findById(updateUser.getId())
-            .orElseThrow(() -> {
-                throw new IllegalArgumentException(String.format("User ID : %d를 찾을 수 없습니다.", users.getId()));
-            });
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(updateUser.getUsername(), users.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        LOGGER.info(principalUser.toString());
-
-        SecurityContextHolder.clearContext();
-
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(principalUser.getUsername(), principalUser.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        LOGGER.info("세션 변경 완료");
+        LOGGER.info("SecurityContex authentication 변경 완료");
 
         return UsersMapping.UsersConvertToDto(updateUser);
     }
