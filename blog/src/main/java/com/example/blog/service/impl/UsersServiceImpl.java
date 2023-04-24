@@ -59,15 +59,30 @@ public class UsersServiceImpl implements UsersService {
         String encPassword = encoder.encode(users.getPassword());
         updateUser.setPassword(encPassword);
         updateUser.setEmail(users.getEmail());
+        usersRepository.save(updateUser);
 
-        LOGGER.info(updateUser.toString());
+        Users principalUser = usersRepository.findById(updateUser.getId())
+            .orElseThrow(() -> {
+                throw new IllegalArgumentException(String.format("User ID : %d를 찾을 수 없습니다.", users.getId()));
+            });
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(updateUser.getUsername(), updateUser.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        LOGGER.info(principalUser.toString());
+
+        SecurityContextHolder.clearContext();
+
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(principalUser.getUsername(), principalUser.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
         
         LOGGER.info("세션 변경 완료");
 
         return UsersMapping.UsersConvertToDto(updateUser);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        usersRepository.deleteById(id);
+        LOGGER.info("User ID:{} 삭제 완료", id);
     }
 
 

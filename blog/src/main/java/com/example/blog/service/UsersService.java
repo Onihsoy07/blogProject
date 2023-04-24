@@ -9,4 +9,6 @@ public interface UsersService {
 
     UsersDto updateUser(Users users);
 
+    void deleteUser(Long id);
+
 }

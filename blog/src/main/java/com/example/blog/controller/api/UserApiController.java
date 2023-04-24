@@ -1,28 +1,19 @@
 package com.example.blog.controller.api;
 
-import com.example.blog.config.auth.PrincipalDetail;
-import com.example.blog.dto.ResponseDto;
 import com.example.blog.dto.UsersDto;
 import com.example.blog.entity.Role;
 import com.example.blog.entity.Users;
 import com.example.blog.service.UsersService;
-import javax.persistence.criteria.CriteriaBuilder.In;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,6 +49,13 @@ public class UserApiController {
         UsersDto userDto = usersService.updateUser(users);
         LOGGER.info(userDto.toString());
 
+        return ResponseEntity.status(HttpStatus.OK).body(1);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Integer> deleteUser(@PathVariable final Long id) {
+        usersService.deleteUser(id);
+        SecurityContextHolder.clearContext();
         return ResponseEntity.status(HttpStatus.OK).body(1);
     }
 

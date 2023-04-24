@@ -27,4 +27,9 @@ public class UsersController {
         return "user/updateForm";
     }
 
+    @GetMapping("/user/userForm")
+    public String userForm() {
+        return "user/userForm";
+    }
+
 }

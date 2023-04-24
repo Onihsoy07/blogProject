@@ -17,10 +17,10 @@ public class GlobalExceptionHandler {
         return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
-    @ExceptionHandler(value = Exception.class)
-    public ResponseDto<String> hadleException(Exception e) {
-        return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    public ResponseDto<String> hadleException(Exception e) {
+//        return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+//    }
 
 
 
