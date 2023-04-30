@@ -9,6 +9,8 @@ public interface UsersService {
 
     int join(Users users);
 
+    Boolean usernameDuplicationCheck(String username);
+
     UsersDto updateUser(Users users);
 
     void deleteUser(Long id);

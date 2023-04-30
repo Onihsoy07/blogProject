@@ -1,6 +1,5 @@
 package com.example.blog.service.impl;
 
-import com.example.blog.controller.api.UserApiController;
 import com.example.blog.dto.KakaoProfile;
 import com.example.blog.dto.OAuthToken;
 import com.example.blog.dto.UsersDto;
@@ -10,6 +9,7 @@ import com.example.blog.repository.UsersRepository;
 import com.example.blog.service.UsersService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,6 +58,15 @@ public class UsersServiceImpl implements UsersService {
         }
         LOGGER.info("service join -1 리턴");
         return -1;
+    }
+
+    
+    //return값 True:username중복없음, False:username중복있음
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean usernameDuplicationCheck(String username) {
+        Optional<Users> user = usersRepository.findByUsername(username);
+        return user.isEmpty();
     }
 
     @Override
@@ -158,7 +166,12 @@ public class UsersServiceImpl implements UsersService {
             .email(kakaoProfile.kakao_account.getEmail())
             .password(UUID.randomUUID().toString())
             .build();
-        join(users);
+        if (usernameDuplicationCheck(users.getUsername())) {
+            join(users);
+        } else {
+            LOGGER.info("아이디가 있습니다.");
+        }
+
         return null;
     }
 }
