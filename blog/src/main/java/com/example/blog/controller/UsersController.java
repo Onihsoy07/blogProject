@@ -1,11 +1,19 @@
 package com.example.blog.controller;
 
 
+import com.example.blog.dto.KakaoProfile;
+import com.example.blog.dto.OAuthToken;
+import com.example.blog.service.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequiredArgsConstructor
 public class UsersController {
+
+    private final UsersService usersService;
 
     @GetMapping("/auth/joinForm")
     public String joinFrom() {
@@ -30,6 +38,16 @@ public class UsersController {
     @GetMapping("/user/userForm")
     public String userForm() {
         return "user/userForm";
+    }
+
+    @GetMapping("/auth/kakao/callback")
+    public @ResponseBody String kakaoCallback(String code) {
+
+        OAuthToken kakaoToken = usersService.getKakaoToken(code);
+        KakaoProfile kakaoProfile = usersService.getKakaoProfile(kakaoToken.getAccess_token());
+        usersService.kakaoRegister(kakaoProfile);
+
+        return "카카오 로그인 완료(임시)";
     }
 
 }

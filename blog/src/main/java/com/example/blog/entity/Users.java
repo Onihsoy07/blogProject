@@ -38,7 +38,7 @@ public class Users extends BaseEntity {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     @NotBlank(message="PASSWORD_IS_MANDATORY")
     @Size(max = 30)
     private String username;
