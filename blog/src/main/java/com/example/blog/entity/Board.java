@@ -1,6 +1,7 @@
 package com.example.blog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
@@ -26,6 +28,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.core.annotation.Order;
 
 @Entity
 @Data
@@ -55,6 +58,8 @@ public class Board extends BaseEntity {
     private Users users;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Reply> replyList = new ArrayList<>();
+    @JsonIgnoreProperties({"board", "users"})
+    @OrderBy("id desc")
+    private List<Reply> replyList;
 
 }

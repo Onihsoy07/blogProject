@@ -1,5 +1,6 @@
 package com.example.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -60,10 +61,12 @@ public class Users extends BaseEntity {
     private Role role;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Board> boardList = new ArrayList<>();
+    @JsonIgnoreProperties({"users", "reply"})
+    private List<Board> boardList;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Reply> replyList = new ArrayList<>();
+    @JsonIgnoreProperties({"users", "board"})
+    private List<Reply> replyList;
 
     @Override
     public String toString() {

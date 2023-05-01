@@ -45,8 +45,9 @@ public class UsersController {
         OAuthToken kakaoToken = usersService.getKakaoToken(code);
         KakaoProfile kakaoProfile = usersService.getKakaoProfile(kakaoToken.getAccess_token());
         usersService.kakaoApiLogin(kakaoProfile);
-
-        return "index";
+        
+        //redirect 안하면 kakaoCallback url로 view만 구현됨
+        return "redirect:/";
     }
 
 }

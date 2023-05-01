@@ -9,6 +9,9 @@ let index = {
     $("#btn-delete").on("click", ()=>{
           this.deleteById();
     });
+    $("#btn-comment").on("click", ()=>{
+          this.replySave();
+    });
 
   },
 
@@ -66,6 +69,26 @@ let index = {
         location.href="/";
       }).fail(function (error){
         alert("삭제가 실패하였습니다.");
+      });
+  },
+
+  replySave: function() {
+    let id = $("#id").text();
+    let data = {
+       content: $("#comment").val()
+    };
+
+    $.ajax({
+      type : "POST",
+      url : "/reply/board/" + id,
+      contentType: "application/json;charset=utf-8",
+      dataType:"json",
+      data : JSON.stringify(data)
+      }).done(function (res) {
+        location.reload();
+        alert("댓글 쓰기가 완료되었습니다.");
+      }).fail(function (error){
+        alert("댓글 쓰기가 실패하였습니다.");
       });
   }
 
