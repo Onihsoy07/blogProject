@@ -84,12 +84,14 @@ public class UsersServiceImpl implements UsersService {
                                             .orElseThrow(() -> {
                                                 throw new IllegalArgumentException(String.format("User ID : %d를 찾을 수 없습니다.", users.getId()));
                                             });
-        String encPassword = encoder.encode(users.getPassword());
-        updateUser.setPassword(encPassword);
-        updateUser.setEmail(users.getEmail());
-        usersRepository.save(updateUser);
+        if(updateUser.getOauth()==null||updateUser.getOauth().equals("")) {
+            String encPassword = encoder.encode(users.getPassword());
+            updateUser.setPassword(encPassword);
+            updateUser.setEmail(users.getEmail());
+            usersRepository.save(updateUser);
 
-        AuthenticationInjection(updateUser.getUsername(), users.getPassword());
+            AuthenticationInjection(updateUser.getUsername(), users.getPassword());
+        }
 
         return UsersMapping.UsersConvertToDto(updateUser);
     }
