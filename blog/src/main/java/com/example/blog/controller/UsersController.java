@@ -7,7 +7,6 @@ import com.example.blog.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,13 +40,13 @@ public class UsersController {
     }
 
     @GetMapping("/auth/kakao/callback")
-    public @ResponseBody String kakaoCallback(String code) {
+    public String kakaoCallback(String code) {
 
         OAuthToken kakaoToken = usersService.getKakaoToken(code);
         KakaoProfile kakaoProfile = usersService.getKakaoProfile(kakaoToken.getAccess_token());
-        usersService.kakaoRegister(kakaoProfile);
+        usersService.kakaoApiLogin(kakaoProfile);
 
-        return "카카오 로그인 완료(임시)";
+        return "index";
     }
 
 }

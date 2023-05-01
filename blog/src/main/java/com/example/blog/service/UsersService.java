@@ -19,6 +19,6 @@ public interface UsersService {
 
     KakaoProfile getKakaoProfile(String accessToken);
 
-    String kakaoRegister(KakaoProfile kakaoProfile);
+    String kakaoApiLogin(KakaoProfile kakaoProfile);
 
 }

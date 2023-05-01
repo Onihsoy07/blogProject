@@ -5,7 +5,6 @@ import com.example.blog.entity.Board;
 import com.example.blog.entity.Users;
 import com.example.blog.repository.BoardRepository;
 import com.example.blog.service.BoardService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

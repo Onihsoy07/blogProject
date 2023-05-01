@@ -3,7 +3,6 @@ package com.example.blog.service;
 import com.example.blog.dto.BoardDto;
 import com.example.blog.entity.Board;
 import com.example.blog.entity.Users;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

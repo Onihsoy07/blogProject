@@ -28,7 +28,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
@@ -45,3 +45,8 @@ logging:
     root: info
     hello:
       spring: debug
+
+admin:
+  open_key: uyfr1doxc9
+  kakao_API:
+    key: 2f424e16978d71f3cf8e447554a3f3ff

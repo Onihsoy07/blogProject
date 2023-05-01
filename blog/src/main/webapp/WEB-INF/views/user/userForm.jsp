@@ -18,7 +18,9 @@
   </form>
 
   <span>
-    <a href="/user/updateForm" class="btn btn-primary">회원수정</a>
+    <c:if test="${empty principal.users.oauth}">
+      <a href="/user/updateForm" class="btn btn-primary">회원수정</a>
+    </c:if>
     <button id="btn-delete" class="btn btn-warning">회원탈퇴</button>
   </span>
 

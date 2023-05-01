@@ -10,11 +10,13 @@ import com.example.blog.service.UsersService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,6 +26,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -34,6 +37,12 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @Slf4j
 public class UsersServiceImpl implements UsersService {
+
+    @Value("${admin.kakao_API.key}")
+    private String kakaoKey;
+
+    @Value("${admin.open_key}")
+    private String key;
 
     private final UsersRepository usersRepository;
 
@@ -56,7 +65,6 @@ public class UsersServiceImpl implements UsersService {
             LOGGER.error("error : " + e.getMessage());
             LOGGER.info("회원가입에 실패하였습니다. error : " + e.getMessage());
         }
-        LOGGER.info("service join -1 리턴");
         return -1;
     }
 
@@ -81,10 +89,7 @@ public class UsersServiceImpl implements UsersService {
         updateUser.setEmail(users.getEmail());
         usersRepository.save(updateUser);
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(updateUser.getUsername(), users.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        LOGGER.info("SecurityContex authentication 변경 완료");
+        AuthenticationInjection(updateUser.getUsername(), users.getPassword());
 
         return UsersMapping.UsersConvertToDto(updateUser);
     }
@@ -104,7 +109,7 @@ public class UsersServiceImpl implements UsersService {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "2f424e16978d71f3cf8e447554a3f3ff");
+        params.add("client_id", kakaoKey);
         params.add("redirect_uri", "http://localhost:8000/auth/kakao/callback");
         params.add("code", code);
 
@@ -160,18 +165,35 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String kakaoRegister(KakaoProfile kakaoProfile) {
-        Users users = new Users().builder()
-            .username(kakaoProfile.kakao_account.getEmail() + kakaoProfile.getId())
-            .email(kakaoProfile.kakao_account.getEmail())
-            .password(UUID.randomUUID().toString())
-            .build();
-        if (usernameDuplicationCheck(users.getUsername())) {
+    public String kakaoApiLogin(KakaoProfile kakaoProfile) {
+        String username = kakaoProfile.kakao_account.getEmail() + "_" + kakaoProfile.getId();
+
+        if (usernameDuplicationCheck(username)) {
+            Users users = new Users().builder()
+                .username(kakaoProfile.kakao_account.getEmail() + "_" + kakaoProfile.getId())
+                .email(kakaoProfile.kakao_account.getEmail())
+                .password(key)
+                .oauth("kakao")
+                .build();
             join(users);
+            LOGGER.info("kakaoApiJoin 완료");
         } else {
-            LOGGER.info("아이디가 있습니다.");
+            LOGGER.info("회원가입 회원입니다.");
         }
 
+        AuthenticationInjection(username, key);
+
         return null;
+    }
+
+    private void AuthenticationInjection(String username, String password) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch(Exception e) {
+            LOGGER.info(e.getMessage());
+        }
+
+        LOGGER.info("SecurityContex authentication 주입 완료");
     }
 }

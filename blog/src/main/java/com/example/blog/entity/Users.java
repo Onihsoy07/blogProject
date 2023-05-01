@@ -38,9 +38,9 @@ public class Users extends BaseEntity {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    @Column(nullable = false, length = 100, unique = true)
-    @NotBlank(message="PASSWORD_IS_MANDATORY")
-    @Size(max = 30)
+    @Column(nullable = false, length = 70, unique = true)
+    @NotBlank(message="USERNAME_IS_MANDATORY")
+    @Size(max = 70)
     private String username;
 
     @Column(nullable = false, length = 100)
@@ -52,6 +52,9 @@ public class Users extends BaseEntity {
     @Email(message = "NOT_VALID_EMAIL")
     @Size(min = 3, max = 50)
     private String email;
+
+    @Column(nullable = true, unique = false)
+    private String oauth;
 
     @Enumerated(EnumType.STRING)
     private Role role;
