@@ -38,8 +38,9 @@
         <li id="comment--1" class="list-group-item d-flex justify-content-between">
           <div>${reply.content}</div>
           <div class="d-flex">
+            <input type="hidden" id="replyId" value="${reply.id}">
             <div class="font-italic">작성자 : ${reply.users.username} &nbsp;</div>
-            <button class="badge">삭제</button>
+            <button id="btn-replyDelete" class="badge">삭제</button>
             &nbsp;
             <button class="badge">수정</button>
           </div>

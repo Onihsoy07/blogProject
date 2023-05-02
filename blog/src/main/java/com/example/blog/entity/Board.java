@@ -59,7 +59,7 @@ public class Board extends BaseEntity {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"board", "users"})
-    @OrderBy("id desc")
+    @OrderBy("createDate desc")
     private List<Reply> replyList;
 
 }

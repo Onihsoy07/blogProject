@@ -7,4 +7,6 @@ public interface ReplyService {
 
     void saveComment(Long BoardId, Users users, ReplyDto replyDto);
 
+    void deleteComment(Long id);
+
 }

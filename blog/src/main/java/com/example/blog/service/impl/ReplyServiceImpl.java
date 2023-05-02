@@ -32,6 +32,20 @@ public class ReplyServiceImpl implements ReplyService {
             .build();
 
         replyRepository.save(reply);
-
     }
+
+    @Override
+    @Transactional
+    public void deleteComment(Long id) {
+        Reply reply = getReply(id);
+        replyRepository.delete(reply);
+    }
+
+    private Reply getReply(Long id) {
+        Reply reply = replyRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Reply ID : %d 로 찾을 수 없습니다.", id));
+        });
+        return reply;
+    }
+
 }

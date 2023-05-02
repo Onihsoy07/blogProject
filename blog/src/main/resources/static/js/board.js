@@ -12,6 +12,9 @@ let index = {
     $("#btn-comment").on("click", ()=>{
           this.replySave();
     });
+    $("#btn-replyDelete").on("click", ()=>{
+          this.replyDelete();
+    });
 
   },
 
@@ -89,6 +92,21 @@ let index = {
         alert("댓글 쓰기가 완료되었습니다.");
       }).fail(function (error){
         alert("댓글 쓰기가 실패하였습니다.");
+      });
+  },
+
+  replyDelete: function() {
+    let id = $("#replyId").val();
+
+    $.ajax({
+      type : "DELETE",
+      url : `/reply/${id}`,
+      dataType:"json"
+      }).done(function (res) {
+        alert("댓글 삭제가 완료되었습니다.");
+        location.reload();
+      }).fail(function (error){
+        alert("댓글 삭제가 실패하였습니다.");
       });
   }
 
