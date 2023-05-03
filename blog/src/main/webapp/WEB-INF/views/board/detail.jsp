@@ -35,12 +35,12 @@
     <div class="card-header">댓글</div>
     <ul id="comment--box" class="list-group">
       <c:forEach var="reply" items="${board.replyList}">
-        <li id="comment--1" class="list-group-item d-flex justify-content-between">
+        <li id="comment--${reply.id}" class="list-group-item d-flex justify-content-between">
           <div>${reply.content}</div>
           <div class="d-flex">
             <input type="hidden" id="replyId" value="${reply.id}">
             <div class="font-italic">작성자 : ${reply.users.username} &nbsp;</div>
-            <button id="btn-replyDelete" class="badge">삭제</button>
+            <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
             &nbsp;
             <button class="badge">수정</button>
           </div>

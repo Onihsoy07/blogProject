@@ -88,19 +88,18 @@ let index = {
       dataType:"json",
       data : JSON.stringify(data)
       }).done(function (res) {
-        location.reload();
         alert("댓글 쓰기가 완료되었습니다.");
+        location.reload();
       }).fail(function (error){
         alert("댓글 쓰기가 실패하였습니다.");
       });
   },
 
-  replyDelete: function() {
-    let id = $("#replyId").val();
-
+  replyDelete: function(boardId, replyId) {
+    alert(replyId);
     $.ajax({
       type : "DELETE",
-      url : `/reply/${id}`,
+      url : `/reply/${replyId}/board/${boardId}`,
       dataType:"json"
       }).done(function (res) {
         alert("댓글 삭제가 완료되었습니다.");

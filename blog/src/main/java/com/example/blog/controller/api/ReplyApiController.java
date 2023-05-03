@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +32,9 @@ public class ReplyApiController {
         return ResponseEntity.status(HttpStatus.OK).body(1);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> deleteComment(@PathVariable final Long id) {
-        replyService.deleteComment(id);
+    @DeleteMapping("/{replyId}/board/{boardId}")
+    public ResponseEntity<Integer> deleteComment(@PathVariable final Long replyId) {
+        replyService.deleteComment(replyId);
         return ResponseEntity.status(HttpStatus.OK).body(1);
     }
 

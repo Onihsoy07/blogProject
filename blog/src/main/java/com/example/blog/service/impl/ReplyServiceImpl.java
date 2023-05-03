@@ -28,8 +28,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     @Transactional
     public void deleteComment(Long id) {
-        Reply reply = getReply(id);
-        replyRepository.delete(reply);
+        replyRepository.deleteById(id);
     }
 
     private Reply getReply(Long id) {
