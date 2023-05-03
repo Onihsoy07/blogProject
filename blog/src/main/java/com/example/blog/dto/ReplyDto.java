@@ -20,12 +20,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReplyDto {
 
-    private Long id;
-
     private String content;
 
-    private String boardId;
+    private Long boardId;
 
-    private String usersId;
+    private Long usersId;
 
 }

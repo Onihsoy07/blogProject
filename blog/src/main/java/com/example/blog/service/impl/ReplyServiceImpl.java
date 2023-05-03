@@ -22,16 +22,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     @Transactional
     public void saveComment(Long boardId, Users users, ReplyDto replyDto) {
-        Board board = boardRepository.findById(boardId).orElseThrow(() ->{
-            throw new IllegalArgumentException(String.format("BoardId : %d 로 찾을 수 없습니다.", boardId));
-        });
-        Reply reply = new Reply().builder()
-            .content(replyDto.getContent())
-            .board(board)
-            .users(users)
-            .build();
-
-        replyRepository.save(reply);
+        replyRepository.replySave(replyDto.getContent(), boardId, users.getId());
     }
 
     @Override
