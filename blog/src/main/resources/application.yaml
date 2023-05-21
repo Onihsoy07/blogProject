@@ -21,10 +21,10 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
-    username: ENC(2rR0jhf2thMxdGkLWfIv4K8uVO7+Esc9aVEWTNih7I/qNy4vZU7FMJIacAtR0Lnk)
+    url: jdbc:mysql://localhost:3306/blog
+    username: root
     #ENC(2rR0jhf2thMxdGkLWfIv4K8uVO7+Esc9aVEWTNih7I/qNy4vZU7FMJIacAtR0Lnk)
-    password: ENC(+774xmsBWt5KUCg7Z9nlC1cxwGDLpwv1oht2JAYNIzYGv5DtB2ACAK4DfU3jXCMl)
+    password: 0880
     #ENC(+774xmsBWt5KUCg7Z9nlC1cxwGDLpwv1oht2JAYNIzYGv5DtB2ACAK4DfU3jXCMl)
 
   jpa:
@@ -50,7 +50,8 @@ logging:
 
 admin:
   jasypt:
-    encryptKey: ${jasypt_password}
+    encryptKey: DQAqWyciU2
+    #${jasypt_password}
   open_key: ENC(GZriwa2qzk9O8CChES67uFBwO6P+YJRZZiXsVdTs1EHMJWLQw0ErAuPbg+gb4lup)
   kakao_API:
     key: ENC(9d3Zjs7+XjFl5bdF4FvMuld/xBeOUSpejIUwSd5mV6jUQb7i5+4ewakr3jb9/mw5RVSMPluacRQAna91iP58dAAiSB+yemvN3fk2449ZWks=)

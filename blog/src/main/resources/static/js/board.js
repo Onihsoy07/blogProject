@@ -1,24 +1,16 @@
-let index = {
-  init: function() {
+$(function () {
     $("#btn-save").on("click", ()=>{
-      this.save();
+      save();
     });
     $("#btn-update").on("click", ()=>{
-          this.update();
+          update();
     });
     $("#btn-delete").on("click", ()=>{
-          this.deleteById();
+          deleteById();
     });
-    $("#btn-comment").on("click", ()=>{
-          this.replySave();
-    });
-    $("#btn-replyDelete").on("click", ()=>{
-          this.replyDelete();
-    });
+})
 
-  },
-
-  save: function() {
+  function save() {
     let data = {
       title: $("#title").val(),
       content: $("#content").val()
@@ -36,9 +28,9 @@ let index = {
       }).fail(function (error){
         alert("글쓰기 실패");
       });
-  },
+  }
 
-  update: function() {
+  function update () {
     let id = $("#id").val()
 
     let data = {
@@ -58,9 +50,9 @@ let index = {
       }).fail(function (error){
         alert("수정이 실패하였습니다.");
       });
-  },
+  }
 
-  deleteById: function() {
+  function deleteById () {
     let id = $("#id").text();
 
     $.ajax({
@@ -73,42 +65,4 @@ let index = {
       }).fail(function (error){
         alert("삭제가 실패하였습니다.");
       });
-  },
-
-  replySave: function() {
-    let id = $("#id").text();
-    let data = {
-       content: $("#comment").val()
-    };
-
-    $.ajax({
-      type : "POST",
-      url : "/reply/board/" + id,
-      contentType: "application/json;charset=utf-8",
-      dataType:"json",
-      data : JSON.stringify(data)
-      }).done(function (res) {
-        alert("댓글 쓰기가 완료되었습니다.");
-        location.reload();
-      }).fail(function (error){
-        alert("댓글 쓰기가 실패하였습니다.");
-      });
-  },
-
-  replyDelete: function(boardId, replyId) {
-    alert(replyId);
-    $.ajax({
-      type : "DELETE",
-      url : `/reply/${replyId}/board/${boardId}`,
-      dataType:"json"
-      }).done(function (res) {
-        alert("댓글 삭제가 완료되었습니다.");
-        location.reload();
-      }).fail(function (error){
-        alert("댓글 삭제가 실패하였습니다.");
-      });
   }
-
-};
-
-index.init();
