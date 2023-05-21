@@ -1,21 +1,20 @@
-let index = {
-  init: function() {
+$(function () {
     $("#btn-loginCheck").on("click", ()=>{
-      this.loginCheck();
+      loginCheck();
     });
     $("#btn-save").on("click", ()=>{
-      this.save();
+      save();
     });
     $("#btn-update").on("click", ()=>{
-          this.update();
+          update();
     });
     $("#btn-delete").on("click", ()=>{
-          this.broke();
+          broke();
     });
 
-  },
+})
 
-  loginCheck: function() {
+  function loginCheck () {
     let data = {
       username: $("#username").val(),
       password: $("#password").val()
@@ -45,9 +44,9 @@ let index = {
       }).fail(function (error){
         alert("회원가입이 실패하였습니다.");
       });
-  },
+  }
 
-  save: function() {
+  function save () {
     let data = {
       username: $("#username").val(),
       password: $("#password").val(),
@@ -70,9 +69,9 @@ let index = {
       }).fail(function (error){
         alert("회원가입이 실패하였습니다.");
       });
-  },
+  }
 
-  update: function() {
+  function update () {
     let data = {
       id: $("#id").val(),
       password: $("#password").val(),
@@ -91,9 +90,9 @@ let index = {
       }).fail(function (error){
         alert("회원수정이 실패하였습니다.");
       });
-  },
+  }
 
-  broke: function() {
+  function broke () {
     let id = $("#id").val();
 
     $.ajax({
@@ -108,7 +107,3 @@ let index = {
         alert("회원탈퇴가 실패하였습니다.");
       });
   }
-
-};
-
-index.init();
