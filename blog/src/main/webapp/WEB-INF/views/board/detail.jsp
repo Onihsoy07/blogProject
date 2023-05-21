@@ -42,9 +42,13 @@
             <div class="font-italic">작성자 : ${reply.users.username} &nbsp;</div>
             <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
             &nbsp;
-            <button class="badge">수정</button>
+            <button onclick="replyModifyWindow(${reply.id})" class="badge">수정</button>
           </div>
         </li>
+        <div style="display:none" id="replyModifyWindow${reply.id}">
+          <div class="card-body"><textarea id="commentModify${reply.id}" class="form-control" rows="1">${reply.content}</textarea></div>
+          <button onclick="replyModify(${reply.id})" class"badge">수정</button>
+        </div>
       </c:forEach>
     </ul>
   </div>

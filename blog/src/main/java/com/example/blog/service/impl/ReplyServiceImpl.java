@@ -31,11 +31,17 @@ public class ReplyServiceImpl implements ReplyService {
         replyRepository.deleteById(id);
     }
 
+    @Override
+    @Transactional
+    public void modifyComment(Long id, ReplyDto replyDto) {
+        Reply reply = getReply(id);
+        reply.setContent(replyDto.getContent());
+    }
+
     private Reply getReply(Long id) {
         Reply reply = replyRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("Reply ID : %d 로 찾을 수 없습니다.", id));
         });
         return reply;
     }
-
 }

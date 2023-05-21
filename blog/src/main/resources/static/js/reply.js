@@ -33,3 +33,32 @@ function replyDelete (boardId, replyId) {
       alert("댓글 삭제가 실패하였습니다.");
     });
 }
+
+function replyModifyWindow(replyId) {
+  alert(replyId);
+  $(`#replyModifyWindow${replyId}`).css('display','block');
+}
+
+function replyModify(replyId) {
+  alert(`commentModify${replyId}`);
+  let data = {
+    content : $(`#commentModify${replyId}`).val()
+  };
+
+  console.log(data);
+
+  $.ajax({
+    type : "PUT",
+    url : "/reply/" + replyId,
+    contentType: "application/json;charset=utf-8",
+    dataType:"json",
+    data : JSON.stringify(data)
+  }).done(function (res) {
+    alert("댓글 수정 완료");
+    location.reload();
+  }).fail(function (error) {
+    console.log(error);
+    alert("댓글 수정 실패");
+    location.reload();
+  })
+}

@@ -9,4 +9,6 @@ public interface ReplyService {
 
     void deleteComment(Long id);
 
+    void modifyComment(Long id, ReplyDto replyDto);
+
 }
