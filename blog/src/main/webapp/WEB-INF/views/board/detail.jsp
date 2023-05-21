@@ -40,7 +40,7 @@
           <div class="d-flex">
             <input type="hidden" id="replyId" value="${reply.id}">
             <div class="font-italic">작성자 : ${reply.users.username} &nbsp;</div>
-            <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
+            <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
             &nbsp;
             <button class="badge">수정</button>
           </div>
