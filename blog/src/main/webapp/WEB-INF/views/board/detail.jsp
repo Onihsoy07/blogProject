@@ -24,30 +24,54 @@
   </div>
   <hr>
 
+    <div style="height:50px;margin-bottom:20px;">
+        <span class="view-good">
+            <button class="badge good-botton" onclick="goodBtn(${board.id}, ${board.count})">
+                <div class="good-cnt" id="goodCnt">${board.count}</div>
+                <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
+            </button>
+        </span>
+    </div>
+
   <div class="card">
     <div class="card-body"><textarea id="comment" class="form-control" rows="1"></textarea></div>
-    <div class="card-footer"><button id="btn-comment" class="btn btn-primary">댓글달기</button>
+    <div class="card-footer">
+      <button id="btn-comment" class="btn btn-primary">댓글달기</button>
+    </div>
   </div>
 
-  <br>
-
-  <div class="card">
+  <div class="card" style="margin-top:20px;">
     <div class="card-header">댓글</div>
     <ul id="comment--box" class="list-group">
       <c:forEach var="reply" items="${board.replyList}">
-        <li id="comment--${reply.id}" class="list-group-item d-flex justify-content-between">
-          <div>${reply.content}</div>
+
+
+        <li id="comment--${reply.id}" class="list-group-item">
+          <div class="font-italic" style="font-size:3px;font-weight:bold;">
+            <span>작성자 : ${reply.users.username}</span> &nbsp;
+            <span>${reply.createDate}</span>
+          </div>
+          <div style="margin:10px 0px;">
+            <span>${reply.content}</span>
+          </div>
           <div class="d-flex">
             <input type="hidden" id="replyId" value="${reply.id}">
-            <div class="font-italic">작성자 : ${reply.users.username} &nbsp;</div>
-            <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
-            &nbsp;
-            <button onclick="replyModifyWindow(${reply.id})" class="badge">수정</button>
+            <div style="width:100px;display:block;">
+              <c:if test="${reply.users.id eq principal.users.id}">
+                <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
+                &nbsp;
+                <button onclick="replyModifyWindow(${reply.id})" class="badge">수정</button>
+              </c:if>
+            </div>
           </div>
         </li>
-        <div style="display:none" id="replyModifyWindow${reply.id}">
+
+
+        <div style="display:none" id="replyModifyWindow${reply.id}" class="sh">
           <div class="card-body"><textarea id="commentModify${reply.id}" class="form-control" rows="1">${reply.content}</textarea></div>
-          <button onclick="replyModify(${reply.id})" class"badge">수정</button>
+          <div style="margin:0px 0px 10px 20px;">
+            <button onclick="replyModify(${reply.id})" class"badge">수정</button>
+          </div>
         </div>
       </c:forEach>
     </ul>

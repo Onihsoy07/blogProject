@@ -36,8 +36,4 @@ public class UsersDto {
 
     private Role role;
 
-    private LocalDateTime createDate;
-
-    private LocalDateTime updateDate;
-
 }

@@ -34,7 +34,7 @@ public class BoardApiController {
 
     @PostMapping("/board")
     public ResponseEntity<Integer> save(@RequestBody final Board board,
-                                     @AuthenticationPrincipal final PrincipalDetail principal) {
+                                        @AuthenticationPrincipal final PrincipalDetail principal) {
         boardService.write(board, principal.getUsers());
         return ResponseEntity.status(HttpStatus.OK).body(HttpStatus.OK.value());
     }

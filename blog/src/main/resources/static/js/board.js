@@ -66,3 +66,7 @@ function deleteById () {
       alert("삭제가 실패하였습니다.");
     });
 }
+
+function goodBtn(id, cnt) {
+    $('#goodCnt').text(cnt + 1);
+}

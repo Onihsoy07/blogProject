@@ -12,8 +12,6 @@ public class UsersMapping {
             .password(users.getPassword())
             .email(users.getEmail())
             .role(users.getRole())
-            .createDate(users.getCreateDate())
-            .updateDate(users.getUpdateDate())
             .build();
 
         return dto;

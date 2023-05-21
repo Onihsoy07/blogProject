@@ -21,7 +21,6 @@ $(function () {
 })
 
 function replyDelete (boardId, replyId) {
-  alert(replyId);
   $.ajax({
     type : "DELETE",
     url : `/reply/${replyId}/board/${boardId}`,
@@ -35,17 +34,14 @@ function replyDelete (boardId, replyId) {
 }
 
 function replyModifyWindow(replyId) {
-  alert(replyId);
+  $('.sh').css('display', 'none');
   $(`#replyModifyWindow${replyId}`).css('display','block');
 }
 
 function replyModify(replyId) {
-  alert(`commentModify${replyId}`);
   let data = {
     content : $(`#commentModify${replyId}`).val()
   };
-
-  console.log(data);
 
   $.ajax({
     type : "PUT",

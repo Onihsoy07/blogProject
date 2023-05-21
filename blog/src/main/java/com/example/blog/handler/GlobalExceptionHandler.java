@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = IllegalIdentifierException.class)
-    public ResponseDto<String> hadleIllegalIdentifierException(IllegalIdentifierException e) {
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseDto<String> hadleIllegalArgumentException(IllegalArgumentException e) {
         return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 

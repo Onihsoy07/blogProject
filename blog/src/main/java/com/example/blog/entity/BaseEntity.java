@@ -1,6 +1,7 @@
 package com.example.blog.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +26,24 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(nullable = false, unique = true)
-//    private Long id;
-
     @CreatedDate
     @Column(updatable = false, nullable = false)
-    private LocalDateTime createDate;
+    private String createDate;
 
     @LastModifiedDate
-    private LocalDateTime updateDate;
+    private String updateDate;
+
+    //엔티티 insert 이전 실행
+    @PrePersist
+    public void onPrePersist(){
+        this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        this.updateDate = this.createDate;
+    }
+
+    //엔티티 update 이전 실행
+    @PreUpdate
+    public void onPreUpdate(){
+        this.updateDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    }
 
 }

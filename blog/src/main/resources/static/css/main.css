@@ -1,0 +1,24 @@
+.view-good {
+    font-family: "나눔고딕", dotum, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    height: 20px;
+    width: 100%;
+    display: inline-block;
+}
+
+.good-botton {
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+}
+
+.good-img {
+    width: 20px;
+}
+
+.good-cnt {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
