@@ -193,4 +193,11 @@ public class UsersServiceImpl {
 
         LOGGER.info("SecurityContex authentication 주입 완료");
     }
+
+    public Users findById(Long id) {
+        return usersRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException(String.format("ID : %d 로 Users를 찾을 수 없습니다.", id));
+                });
+    }
 }

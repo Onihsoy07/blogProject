@@ -26,8 +26,8 @@
 
     <div style="height:50px;margin-bottom:20px;">
         <span class="view-good">
-            <button class="badge good-botton" onclick="goodBtn(${board.id}, ${board.count})">
-                <div class="good-cnt" id="goodCnt">${board.count}</div>
+            <button class="badge good-botton" onclick="goodBtn(${board.id}, ${principal.users.id})">
+                <div class="good-cnt" id="goodCnt">${likes}</div>
                 <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
             </button>
         </span>

@@ -54,7 +54,7 @@ public class BoardServiceImpl {
         LOGGER.info("boardService의 updateBoard 작업 완료");
     }
 
-    private Board findById(Long id) {
+    public Board findById(Long id) {
         return boardRepository.findById(id)
             .orElseThrow(() -> {
                 throw new IllegalArgumentException(String.format("ID : %d 로 Board를 찾을 수 없습니다.", id));

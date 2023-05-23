@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.service.BoardService;
 import com.example.blog.service.impl.BoardServiceImpl;
+import com.example.blog.service.impl.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class BoardController {
 
     private final BoardServiceImpl boardService;
+    private final LikesService likesService;
 
     @GetMapping({"/", ""})
     public String index(Model model,
@@ -35,6 +37,7 @@ public class BoardController {
     @GetMapping("/board/{id}")
     public String viewBoard(@PathVariable final Long id, Model model) {
         model.addAttribute("board", boardService.viewBoard(id));
+        model.addAttribute("likes", likesService.countLikes(id));
         return "board/detail";
     }
 

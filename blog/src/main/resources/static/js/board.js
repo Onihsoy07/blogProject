@@ -67,7 +67,36 @@ function deleteById () {
     });
 }
 
-function goodBtn(id, cnt) {
-    $('#goodCnt').text(cnt + 1);
-    alert("좋아요를 하였습니다.")
+function goodBtn(boardId, usersId) {
+
+    alert("버튼누름");
+    let data = {
+        boardId: boardId,
+        usersId: usersId
+    };
+
+    $.ajax({
+    type : "POST",
+    url : "/likes",
+    contentType: "application/json;charset=utf-8",
+    dataType: "json",
+    data : JSON.stringify(data)
+    }).done(function (res) {
+      alert(res);
+    }).fail(function (error){
+      alert("실패");
+    });
+
+//    $.ajax({
+//        type : "POST",
+//        url : "/likes"
+//        contentType: "application/json;charset=utf-8",
+//        dataType : json,
+//        data : JSON.stringify(data)
+//    }).done(function (res) {
+//        $('#goodCnt').text($('#goodCnt').text() + 1);
+//        alert(res);
+//    }).fail(function (error) {
+//        alert("!!!!!!!!!!좋아요를 하였습니다.")
+//    });
 }
