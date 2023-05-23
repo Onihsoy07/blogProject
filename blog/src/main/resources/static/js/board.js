@@ -82,6 +82,7 @@ function goodBtn(boardId, usersId) {
     dataType: "json",
     data : JSON.stringify(data)
     }).done(function (res) {
+      $('#goodCnt').text(parseInt($('#goodCnt').text()) + 1);
       alert(res);
     }).fail(function (error){
       alert("실패");
