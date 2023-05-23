@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl {
 
     private final BoardRepository boardRepository;
 
@@ -30,26 +30,22 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(board);
     }
 
-    @Override
     @Transactional(readOnly = true)
     public Page<Board> writeList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
-    @Override
     @Transactional(readOnly = true)
     public Board viewBoard(Long id) {
         return findById(id);
     }
 
-    @Override
     @Transactional
     public void deleteById(Long id) {
         boardRepository.deleteById(id);
         LOGGER.info("boardService의 deleteById 작업 완료");
     }
 
-    @Override
     @Transactional
     public void updateBoard(Long id, BoardDto board) {
         Board updateBoard = findById(id);

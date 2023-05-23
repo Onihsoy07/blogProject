@@ -13,25 +13,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ReplyServiceImpl implements ReplyService {
+public class ReplyServiceImpl {
 
     private final ReplyRepository replyRepository;
 
     private final BoardRepository boardRepository;
 
-    @Override
     @Transactional
     public void saveComment(Long boardId, Users users, ReplyDto replyDto) {
         replyRepository.replySave(replyDto.getContent(), boardId, users.getId());
     }
 
-    @Override
     @Transactional
     public void deleteComment(Long id) {
         replyRepository.deleteById(id);
     }
 
-    @Override
     @Transactional
     public void modifyComment(Long id, ReplyDto replyDto) {
         Reply reply = getReply(id);

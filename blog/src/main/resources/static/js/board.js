@@ -69,4 +69,5 @@ function deleteById () {
 
 function goodBtn(id, cnt) {
     $('#goodCnt').text(cnt + 1);
+    alert("좋아요를 하였습니다.")
 }

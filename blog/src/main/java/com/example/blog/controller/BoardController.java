@@ -1,8 +1,11 @@
 package com.example.blog.controller;
 
 import com.example.blog.service.BoardService;
+import com.example.blog.service.impl.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -15,12 +18,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final BoardService boardService;
+    private final BoardServiceImpl boardService;
 
     @GetMapping({"/", ""})
     public String index(Model model,
-                        @PageableDefault(size = 5, sort = "id", direction = Direction.DESC) Pageable pageable) {
-        model.addAttribute("boards", boardService.writeList(pageable));
+                        Pageable pageable) {
+        model.addAttribute("boards", boardService.writeList(customPage(pageable)));
         return "index";
     }
 
@@ -39,6 +42,10 @@ public class BoardController {
     public String updateForm(@PathVariable final Long id, Model model) {
         model.addAttribute("board", boardService.viewBoard(id));
         return "board/updateForm";
+    }
+
+    private PageRequest customPage(Pageable pageable) {
+        return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 7, Sort.by("createDate").descending());
     }
 
 }

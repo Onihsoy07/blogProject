@@ -4,6 +4,7 @@ package com.example.blog.controller;
 import com.example.blog.dto.KakaoProfile;
 import com.example.blog.dto.OAuthToken;
 import com.example.blog.service.UsersService;
+import com.example.blog.service.impl.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class UsersController {
 
-    private final UsersService usersService;
+    private final UsersServiceImpl usersService;
 
     @GetMapping("/auth/joinForm")
     public String joinFrom() {

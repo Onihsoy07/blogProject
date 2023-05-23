@@ -6,6 +6,8 @@ import com.example.blog.entity.Reply;
 import com.example.blog.service.ReplyService;
 import java.net.Inet4Address;
 import javax.persistence.criteria.CriteriaBuilder.In;
+
+import com.example.blog.service.impl.ReplyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ReplyApiController {
 
-    private final ReplyService replyService;
+    private final ReplyServiceImpl replyService;
 
     @PostMapping("/board/{id}")
     public ResponseEntity<Integer> saveComment(@PathVariable final Long id,

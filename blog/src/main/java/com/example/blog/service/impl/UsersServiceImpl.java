@@ -3,6 +3,7 @@ package com.example.blog.service.impl;
 import com.example.blog.dto.KakaoProfile;
 import com.example.blog.dto.OAuthToken;
 import com.example.blog.dto.UsersDto;
+import com.example.blog.entity.Role;
 import com.example.blog.entity.Users;
 import com.example.blog.mapping.UsersMapping;
 import com.example.blog.repository.UsersRepository;
@@ -36,7 +37,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl {
 
     @Value("${admin.kakao_API.key}")
     private String kakaoKey;
@@ -52,8 +53,7 @@ public class UsersServiceImpl implements UsersService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UsersServiceImpl.class);
 
-    @Override
-    @Transactional()
+    @Transactional
     public int join(Users user) {
         String encPassword = encoder.encode(user.getPassword());
         user.setPassword(encPassword);
@@ -70,14 +70,12 @@ public class UsersServiceImpl implements UsersService {
 
     
     //return값 True:username중복없음, False:username중복있음
-    @Override
     @Transactional(readOnly = true)
     public Boolean usernameDuplicationCheck(String username) {
         Optional<Users> user = usersRepository.findByUsername(username);
         return user.isEmpty();
     }
 
-    @Override
     @Transactional
     public UsersDto updateUser(Users users) {
         Users updateUser = usersRepository.findById(users.getId())
@@ -96,14 +94,12 @@ public class UsersServiceImpl implements UsersService {
         return UsersMapping.UsersConvertToDto(updateUser);
     }
 
-    @Override
     @Transactional
     public void deleteUser(Long id) {
         usersRepository.deleteById(id);
         LOGGER.info("User ID:{} 삭제 완료", id);
     }
 
-    @Override
     public OAuthToken getKakaoToken(String code) {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -135,7 +131,6 @@ public class UsersServiceImpl implements UsersService {
         return oAuthToken;
     }
 
-    @Override
     public KakaoProfile getKakaoProfile(String accessToken) {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -166,7 +161,6 @@ public class UsersServiceImpl implements UsersService {
         return kakaoProfile;
     }
 
-    @Override
     public String kakaoApiLogin(KakaoProfile kakaoProfile) {
         String username = kakaoProfile.kakao_account.getEmail() + "_" + kakaoProfile.getId();
 
@@ -175,6 +169,7 @@ public class UsersServiceImpl implements UsersService {
                 .username(kakaoProfile.kakao_account.getEmail() + "_" + kakaoProfile.getId())
                 .email(kakaoProfile.kakao_account.getEmail())
                 .password(key)
+                .role(Role.USER)
                 .oauth("kakao")
                 .build();
             join(users);

@@ -5,6 +5,7 @@ import com.example.blog.dto.BoardDto;
 import com.example.blog.dto.ResponseDto;
 import com.example.blog.entity.Board;
 import com.example.blog.service.BoardService;
+import com.example.blog.service.impl.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class BoardApiController {
 
-    private final BoardService boardService;
+    private final BoardServiceImpl boardService;
 
     private final Logger LOGGER = LoggerFactory.getLogger(BoardApiController.class);
 

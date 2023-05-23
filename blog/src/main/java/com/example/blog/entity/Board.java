@@ -51,6 +51,7 @@ public class Board extends BaseEntity {
     @Size(min = 3)
     private String content;
 
+//    @ColumnDefault("0")
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY)

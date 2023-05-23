@@ -34,6 +34,9 @@ public class Reply extends BaseEntity {
     @Size(min = 3)
     private String content;
 
+    @Column(nullable = false)
+    private int depth;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
     private Board board;

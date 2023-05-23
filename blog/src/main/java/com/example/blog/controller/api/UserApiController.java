@@ -5,6 +5,8 @@ import com.example.blog.entity.Role;
 import com.example.blog.entity.Users;
 import com.example.blog.service.UsersService;
 import javax.validation.Valid;
+
+import com.example.blog.service.impl.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -26,7 +28,7 @@ public class UserApiController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserApiController.class);
 
-    private final UsersService usersService;
+    private final UsersServiceImpl usersService;
 
     @PostMapping("/auth/joinProc")
     public ResponseEntity<Integer> save(@RequestBody @Valid final Users users) {
