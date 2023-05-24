@@ -26,4 +26,8 @@ public class ReplyDto {
 
     private Long usersId;
 
+    private Long replyId;
+
+    private int depth;
+
 }

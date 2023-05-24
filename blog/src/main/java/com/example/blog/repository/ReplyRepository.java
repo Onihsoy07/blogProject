@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     @Modifying
-    @Query(value = "INSERT INTO reply(content, boardId, usersId, depth, createDate) VALUES(?1, ?2, ?3, ?4, now())", nativeQuery = true)
-    int replySave(String content, Long boardId, Long usersId, int depth);
+    @Query(value = "INSERT INTO reply(content, boardId, usersId, replyId, depth, createDate) VALUES(?1, ?2, ?3, ?4, ?5, now())", nativeQuery = true)
+    int replySave(String content, Long boardId, Long usersId, Long replyId, int depth);
 
 }

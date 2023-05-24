@@ -21,7 +21,7 @@ public class ReplyServiceImpl {
 
     @Transactional
     public void saveComment(Long boardId, Users users, ReplyDto replyDto) {
-        replyRepository.replySave(replyDto.getContent(), boardId, users.getId(), 0);
+        replyRepository.replySave(replyDto.getContent(), boardId, users.getId(), replyDto.getReplyId(), replyDto.getDepth());
     }
 
     @Transactional

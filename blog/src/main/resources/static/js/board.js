@@ -87,17 +87,4 @@ function goodBtn(boardId, usersId) {
     }).fail(function (error){
       alert("실패");
     });
-
-//    $.ajax({
-//        type : "POST",
-//        url : "/likes"
-//        contentType: "application/json;charset=utf-8",
-//        dataType : json,
-//        data : JSON.stringify(data)
-//    }).done(function (res) {
-//        $('#goodCnt').text($('#goodCnt').text() + 1);
-//        alert(res);
-//    }).fail(function (error) {
-//        alert("!!!!!!!!!!좋아요를 하였습니다.")
-//    });
 }

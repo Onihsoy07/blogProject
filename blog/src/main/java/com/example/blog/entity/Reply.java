@@ -38,6 +38,10 @@ public class Reply extends BaseEntity {
     private int depth;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "replyId")
+    private Reply reply;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
     private Board board;
 

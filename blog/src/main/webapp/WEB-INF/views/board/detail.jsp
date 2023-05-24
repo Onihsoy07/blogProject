@@ -36,7 +36,7 @@
   <div class="card">
     <div class="card-body"><textarea id="comment" class="form-control" rows="1"></textarea></div>
     <div class="card-footer">
-      <button id="btn-comment" class="btn btn-primary">댓글달기</button>
+      <button id="btn-comment" class="btn btn-primary" onclick="replySummit(${board.id}, 0, 0)">댓글달기</button>
     </div>
   </div>
 
@@ -45,32 +45,37 @@
     <ul id="comment--box" class="list-group">
       <c:forEach var="reply" items="${board.replyList}">
 
-
-        <li id="comment--${reply.id}" class="list-group-item">
+        <li id="comment--${reply.id}" class="list-group-item" depth="${reply.depth}" style="margin-left:${reply.depth*30}px">
           <div class="font-italic" style="font-size:3px;font-weight:bold;">
             <span>작성자 : ${reply.users.username}</span> &nbsp;
             <span>${reply.createDate}</span>
+            <span>&nbsp;&nbsp;&nbsp;${reply.depth}</span>
           </div>
-          <div style="margin:10px 0px;">
-            <span>${reply.content}</span>
+          <div style="margin:5px 0px;">
+            ${reply.content}
           </div>
           <div class="d-flex">
             <input type="hidden" id="replyId" value="${reply.id}">
-            <div style="width:100px;display:block;">
+            <div>
               <c:if test="${reply.users.id eq principal.users.id}">
-                <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
-                &nbsp;
-                <button onclick="replyModifyWindow(${reply.id})" class="badge">수정</button>
+                <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge reply-button">삭제</button>
+                <button onclick="replyModifyWindow(${reply.id})" class="badge reply-button">수정</button>
               </c:if>
+              <button onclick="reReplyWindow(${reply.id})" class="badge reply-button">댓글</button>
             </div>
           </div>
         </li>
-
 
         <div style="display:none" id="replyModifyWindow${reply.id}" class="sh">
           <div class="card-body"><textarea id="commentModify${reply.id}" class="form-control" rows="1">${reply.content}</textarea></div>
           <div style="margin:0px 0px 10px 20px;">
             <button onclick="replyModify(${reply.id})" class"badge">수정</button>
+          </div>
+        </div>
+        <div style="display:none;margin-left:${reply.depth*30}px;" id="reReplyWindow${reply.id}" class="sh">
+          <div class="card-body"><textarea id="comment${reply.id}" class="form-control" rows="1"></textarea></div>
+          <div style="margin:0px 0px 10px 20px;">
+            <button onclick="replySummit(${board.id}, ${reply.id}, ${reply.depth+1})" class"badge">댓글</button>
           </div>
         </div>
       </c:forEach>

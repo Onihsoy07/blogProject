@@ -1,6 +1,4 @@
 .view-good {
-    font-family: "나눔고딕", dotum, sans-serif;
-    font-size: 12px;
     text-align: center;
     box-sizing: border-box;
     height: 20px;
@@ -21,4 +19,8 @@
 .good-cnt {
     font-size: 15px;
     margin-bottom: 3px;
+}
+
+.reply-button {
+    margin-right:2px;
 }
