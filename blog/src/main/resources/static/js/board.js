@@ -68,8 +68,6 @@ function deleteById () {
 }
 
 function goodBtn(boardId, usersId) {
-
-    alert("버튼누름");
     let data = {
         boardId: boardId,
         usersId: usersId
@@ -82,8 +80,10 @@ function goodBtn(boardId, usersId) {
     dataType: "json",
     data : JSON.stringify(data)
     }).done(function (res) {
-      $('#goodCnt').text(parseInt($('#goodCnt').text()) + 1);
-      alert(res);
+        if (res.status==200) {
+            $('#goodCnt').text(parseInt($('#goodCnt').text()) + 1);
+        }
+        alert(res.data);
     }).fail(function (error){
       alert("실패");
     });

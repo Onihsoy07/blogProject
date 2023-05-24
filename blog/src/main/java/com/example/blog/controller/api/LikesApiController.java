@@ -1,6 +1,7 @@
 package com.example.blog.controller.api;
 
 import com.example.blog.dto.LikesDto;
+import com.example.blog.dto.ResponseDto;
 import com.example.blog.service.impl.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,7 @@ public class LikesApiController {
     private final LikesService likesService;
 
     @PostMapping("/likes")
-    public ResponseEntity<Integer> insertLike(@RequestBody final LikesDto likesDto) {
-        String msg = likesService.insertLike(likesDto);
-        return ResponseEntity.status(HttpStatus.OK).body(1);
+    public ResponseDto<String> insertLike(@RequestBody final LikesDto likesDto) {
+        return likesService.insertLike(likesDto);
     }
 }

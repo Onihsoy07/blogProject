@@ -1,9 +1,11 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.dto.LikesDto;
+import com.example.blog.dto.ResponseDto;
 import com.example.blog.entity.Likes;
 import com.example.blog.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,16 +20,16 @@ public class LikesService {
     private final BoardServiceImpl boardService;
 
     @Transactional
-    public String insertLike(LikesDto likesDto) {
+    public ResponseDto<String> insertLike(LikesDto likesDto) {
         if (duplicationLikesCheck(likesDto)) {
             Likes likes = new Likes().builder()
                     .board(boardService.findById(likesDto.getBoardId()))
                     .users(usersService.findById(likesDto.getUsersId()))
                     .build();
             likesRepository.save(likes);
-            return "좋아요를 하였습니다.";
+            return new ResponseDto<>(HttpStatus.OK.value(), "좋아요를 하였습니다.");
         }
-        return "이미 좋아요를 하였습니다.";
+        return new ResponseDto<>(HttpStatus.PRECONDITION_REQUIRED.value(), "이미 좋아요를 하였습니다.");
     }
 
     @Transactional
