@@ -6,6 +6,9 @@ function replySummit (boardId, replyId, depth) {
             replyId: null,
             depth: depth
         };
+    } else if (depth >= 5) {
+        alert("더 대댓작성이 안됩니다.");
+        return false;
     } else {
         data = {
             content: $(`#comment${replyId}`).val(),

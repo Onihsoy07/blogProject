@@ -61,7 +61,9 @@
                 <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge reply-button">삭제</button>
                 <button onclick="replyModifyWindow(${reply.id})" class="badge reply-button">수정</button>
               </c:if>
-              <button onclick="reReplyWindow(${reply.id})" class="badge reply-button">댓글</button>
+              <c:if test="${reply.depth < 4}">
+                <button onclick="reReplyWindow(${reply.id})" class="badge reply-button">댓글</button>
+              </c:if>
             </div>
           </div>
         </li>
