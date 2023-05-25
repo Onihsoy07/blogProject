@@ -32,7 +32,7 @@ public class Reply extends BaseEntity {
     @JoinColumn(name = "replyId")
     private Reply reply;
 
-    @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reply> replySet;
 
     @ManyToOne(fetch = FetchType.LAZY)

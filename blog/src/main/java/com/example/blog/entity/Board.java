@@ -59,10 +59,13 @@ public class Board extends BaseEntity {
     @JoinColumn(name = "usersId")
     private Users users;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnoreProperties({"board", "users"})
     @OrderBy("createDate desc")
     private List<Reply> replyList;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Likes> likesList;
 
 
 
