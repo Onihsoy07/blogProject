@@ -31,7 +31,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.core.annotation.Order;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -58,9 +59,11 @@ public class Board extends BaseEntity {
     @JoinColumn(name = "usersId")
     private Users users;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnoreProperties({"board", "users"})
     @OrderBy("createDate desc")
     private List<Reply> replyList;
+
+
 
 }

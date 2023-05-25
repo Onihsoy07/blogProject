@@ -9,7 +9,8 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Table(name = "likes", schema = "blog", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Likes {
