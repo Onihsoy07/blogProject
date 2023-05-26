@@ -43,7 +43,7 @@
   <div class="card" style="margin-top:20px;">
     <div class="card-header">댓글</div>
     <ul id="comment--box" class="list-group">
-      <c:forEach var="reply" items="${board.replyList}">
+      <c:forEach var="reply" items="${replyList}">
 
         <li id="comment--${reply.id}" class="list-group-item" depth="${reply.depth}" style="margin-left:${reply.depth*30}px">
           <div class="font-italic" style="font-size:3px;font-weight:bold;">

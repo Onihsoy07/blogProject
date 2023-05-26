@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReplyServiceImpl {
@@ -18,6 +21,8 @@ public class ReplyServiceImpl {
     private final ReplyRepository replyRepository;
 
     private final BoardRepository boardRepository;
+
+    private List<Reply> replyList = new ArrayList<>();
 
     @Transactional
     public void saveComment(Long boardId, Users users, ReplyDto replyDto) {
@@ -41,4 +46,24 @@ public class ReplyServiceImpl {
         });
         return reply;
     }
+
+    public List<Reply> replyListSet(Long boardId) {
+        replyList.clear();
+        List<Reply> rList = replyRepository.findByBoard_IdAndDepthOrderByCreateDateAsc(boardId, 0);
+        for (Reply reply : rList) {
+            def(reply);
+        }
+        return replyList;
+    }
+
+    private void def(Reply getReply) {
+        replyList.add(getReply);
+        List<Reply> rList = getReply.getReplyList();
+        if (rList.size()!=0) {
+            for (Reply reply : rList) {
+                def(reply);
+            }
+        }
+    }
+
 }

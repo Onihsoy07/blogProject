@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,7 +34,7 @@ public class Reply extends BaseEntity {
     private Reply reply;
 
     @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Reply> replySet;
+    private List<Reply> replyList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")

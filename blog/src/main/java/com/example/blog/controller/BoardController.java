@@ -4,6 +4,7 @@ import com.example.blog.entity.Board;
 import com.example.blog.service.BoardService;
 import com.example.blog.service.impl.BoardServiceImpl;
 import com.example.blog.service.impl.LikesService;
+import com.example.blog.service.impl.ReplyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,8 @@ public class BoardController {
     private final BoardServiceImpl boardService;
     private final LikesService likesService;
 
+    private final ReplyServiceImpl replyService;
+
     @GetMapping({"/", ""})
     public String index(Model model,
                         Pageable pageable) {
@@ -42,6 +45,7 @@ public class BoardController {
     public String viewBoard(@PathVariable final Long id, Model model) {
         model.addAttribute("board", boardService.viewBoard(id));
         model.addAttribute("likes", likesService.countLikes(id));
+        model.addAttribute("replyList", replyService.replyListSet(id));
         return "board/detail";
     }
 

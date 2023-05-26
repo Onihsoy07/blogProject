@@ -56,6 +56,7 @@ public class BoardServiceImpl {
         LOGGER.info("boardService의 updateBoard 작업 완료");
     }
 
+    @Transactional(readOnly = true)
     public Board findById(Long id) {
         return boardRepository.findById(id)
             .orElseThrow(() -> {

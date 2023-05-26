@@ -8,7 +8,15 @@
 
       <div class="card m-2">
         <div class="card-body">
-          <h4 class="card-title">${board.title}<span style="font-size:15px;margin-left:5px;">[${board.replyList.size()}]</span></h4>
+          <h4 class="card-title">
+            ${board.title}
+            <span style="font-size:15px;margin-left:5px;">
+                댓글[${board.replyList.size()}]
+            </span>
+            <span style="font-size:15px;margin-left:5px;">
+                좋아요[${board.likesList.size()}]
+            </span>
+          </h4>
           <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
         </div>
       </div>
